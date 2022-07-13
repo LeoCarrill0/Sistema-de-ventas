@@ -34,24 +34,39 @@ namespace SIstema_Tienda
         {
             try
             {
+                MySqlDataReader reader = null;
                 String Codigo = textBox1.Text;
                 String Nombre = textBox2.Text;
                 double Precio = double.Parse(textBox3.Text);
                 int Existencias = int.Parse(textBox4.Text);
                 if (Codigo != "" && Nombre != "" && Precio > 0 && Existencias > 0)
                 {
-                    string sql = "INSERT INTO productos (Nombre, Precio, Cantidad, Codigo) VALUES ('" + Nombre + "','"
-                    + Precio + "','" + Existencias + "','" + Codigo + "')";
+                    string sql = "SELECT Id, Nombre, Precio, Fecha, Cantidad, Codigo FROM productos WHERE Codigo LIKE '"
+                    + Codigo + "' LIMIT 1";
 
                     MySqlConnection conexionBD = ConexionDB.Conexion();
                     conexionBD.Open();
 
+
                     try
                     {
                         MySqlCommand comando = new MySqlCommand(sql, conexionBD);
-                        comando.ExecuteNonQuery(); ;
-                        label7.Text = "Producto guardados";
-                        limpiar();
+                        reader = comando.ExecuteReader();
+
+                        if (reader.HasRows)
+                        {
+                            label7.Text = "Este producto ya esta registrado";
+                        }
+                        else
+                        {
+
+                            sql = "INSERT INTO productos (Nombre, Precio, Cantidad, Codigo) VALUES ('" + Nombre + "','"
+                            + Precio + "','" + Existencias + "','" + Codigo + "')";
+                            comando.CommandText = sql;
+                            comando.ExecuteNonQuery();
+                            label7.Text = "Producto guardados";
+                            limpiar();
+                        }
                     }
                     catch (MySqlException ex)
                     {
