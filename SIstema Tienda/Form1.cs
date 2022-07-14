@@ -188,24 +188,31 @@ namespace SIstema_Tienda
 
         private void imprimir()
         {
-            listView1.Items.Clear();
-            for (int x = 0; x <= i; x++)
+            try
             {
-                ListViewItem lista = lista = new ListViewItem();
-                lista.SubItems.Add(Codigo_A5[x].ToString());
-                lista.SubItems.Add(Nombre_A1[x]);
-                lista.SubItems.Add(Precio_A2[x].ToString());
-                
-                if(x == i)
+                listView1.Items.Clear();
+                for (int x = 0; x <= i; x++)
                 {
-                    lista.SubItems.Add(precio_total.ToString());
-                    listView1.Items.Add(lista);
-                }
-                else
-                {
-                    listView1.Items.Add(lista);
-                }
+                    ListViewItem lista = lista = new ListViewItem();
+                    lista.SubItems.Add(Codigo_A5[x].ToString());
+                    lista.SubItems.Add(Nombre_A1[x]);
+                    lista.SubItems.Add(Precio_A2[x].ToString());
 
+                    if (x == i)
+                    {
+                        lista.SubItems.Add(precio_total.ToString());
+                        listView1.Items.Add(lista);
+                    }
+                    else
+                    {
+                        listView1.Items.Add(lista);
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                label1.Text = "Error" + ex.Message;
             }
             
         }
@@ -217,8 +224,8 @@ namespace SIstema_Tienda
 
         private void button4_Click(object sender, EventArgs e)
         {
-            
-            imprimir();
+
+            listView1.Items.Clear();
             Reiniciar();
         }
     }

@@ -68,7 +68,7 @@
             this.menuToolStripMenuItem1});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1514, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(1704, 28);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -136,10 +136,10 @@
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(458, 79);
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label1.Location = new System.Drawing.Point(164, 638);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(0, 20);
+            this.label1.Size = new System.Drawing.Size(831, 34);
             this.label1.TabIndex = 5;
             // 
             // button3
@@ -170,6 +170,7 @@
             this.columnHeader2,
             this.columnHeader3,
             this.columnHeader4});
+            this.listView1.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.listView1.Location = new System.Drawing.Point(164, 158);
             this.listView1.Name = "listView1";
             this.listView1.Size = new System.Drawing.Size(831, 467);
@@ -206,7 +207,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1514, 1022);
+            this.ClientSize = new System.Drawing.Size(1704, 1055);
             this.Controls.Add(this.listView1);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);
