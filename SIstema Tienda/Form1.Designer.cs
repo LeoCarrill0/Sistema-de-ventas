@@ -52,9 +52,9 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(1743, 952);
+            this.button1.Location = new System.Drawing.Point(1630, 869);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(94, 29);
+            this.button1.Size = new System.Drawing.Size(114, 61);
             this.button1.TabIndex = 0;
             this.button1.Text = "Finalizar";
             this.button1.UseVisualStyleBackColor = true;
@@ -68,7 +68,7 @@
             this.menuToolStripMenuItem1});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1704, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(1919, 28);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -119,7 +119,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(321, 72);
+            this.button2.Location = new System.Drawing.Point(248, 59);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(94, 29);
             this.button2.TabIndex = 2;
@@ -129,24 +129,25 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(164, 72);
+            this.textBox1.Location = new System.Drawing.Point(89, 59);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(125, 27);
             this.textBox1.TabIndex = 3;
             // 
             // label1
             // 
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label1.Location = new System.Drawing.Point(164, 638);
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label1.Location = new System.Drawing.Point(89, 953);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(831, 34);
+            this.label1.Size = new System.Drawing.Size(1179, 34);
             this.label1.TabIndex = 5;
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(1037, 596);
+            this.button3.Location = new System.Drawing.Point(1350, 869);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(147, 29);
+            this.button3.Size = new System.Drawing.Size(114, 61);
             this.button3.TabIndex = 6;
             this.button3.Text = "Borrar producto";
             this.button3.UseVisualStyleBackColor = true;
@@ -154,9 +155,9 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(1614, 952);
+            this.button4.Location = new System.Drawing.Point(1490, 869);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(94, 29);
+            this.button4.Size = new System.Drawing.Size(114, 61);
             this.button4.TabIndex = 7;
             this.button4.Text = "Cancelar";
             this.button4.UseVisualStyleBackColor = true;
@@ -170,44 +171,44 @@
             this.columnHeader2,
             this.columnHeader3,
             this.columnHeader4});
-            this.listView1.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.listView1.Location = new System.Drawing.Point(164, 158);
+            this.listView1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.listView1.Location = new System.Drawing.Point(89, 107);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(831, 467);
+            this.listView1.Size = new System.Drawing.Size(1179, 823);
             this.listView1.TabIndex = 10;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
             // 
             // columnHeader5
             // 
-            this.columnHeader5.Text = "";
-            this.columnHeader5.Width = 100;
+            this.columnHeader5.Text = "No.";
+            this.columnHeader5.Width = 75;
             // 
             // columnHeader1
             // 
             this.columnHeader1.Text = "Codigo";
-            this.columnHeader1.Width = 150;
+            this.columnHeader1.Width = 300;
             // 
             // columnHeader2
             // 
             this.columnHeader2.Text = "Nombre";
-            this.columnHeader2.Width = 150;
+            this.columnHeader2.Width = 300;
             // 
             // columnHeader3
             // 
             this.columnHeader3.Text = "Precio";
-            this.columnHeader3.Width = 150;
+            this.columnHeader3.Width = 300;
             // 
             // columnHeader4
             // 
             this.columnHeader4.Text = "Total";
-            this.columnHeader4.Width = 150;
+            this.columnHeader4.Width = 200;
             // 
             // Ventas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1704, 1055);
+            this.ClientSize = new System.Drawing.Size(1919, 1055);
             this.Controls.Add(this.listView1);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);

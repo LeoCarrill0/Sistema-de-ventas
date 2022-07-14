@@ -137,7 +137,7 @@ namespace SIstema_Tienda
                                 Codigo_A5[i] = reader.GetString(5);
 
                                 precio_total = precio_total + Precio_A2[i];
-                                label1.Text = "Producto agregado 1";
+                                label1.Text = "Producto " + Nombre_A1[i] + " agregado";
                                 imprimir();
                             }
                             else
@@ -159,7 +159,7 @@ namespace SIstema_Tienda
                                 Codigo_A5[i] = reader.GetString(5);
 
                                 precio_total = precio_total + Precio_A2[i];
-                                label1.Text = "Producto agregado 2";
+                                label1.Text = "Producto " + Nombre_A1[i] + " agregado";
                                 imprimir();
                             }
                         }
@@ -193,7 +193,8 @@ namespace SIstema_Tienda
                 listView1.Items.Clear();
                 for (int x = 0; x <= i; x++)
                 {
-                    ListViewItem lista = lista = new ListViewItem();
+                    int x_1 = x + 1;
+                    ListViewItem lista = lista = new ListViewItem(x_1.ToString());
                     lista.SubItems.Add(Codigo_A5[x].ToString());
                     lista.SubItems.Add(Nombre_A1[x]);
                     lista.SubItems.Add(Precio_A2[x].ToString());
