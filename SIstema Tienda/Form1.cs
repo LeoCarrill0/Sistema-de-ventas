@@ -1,5 +1,6 @@
 using MySql.Data.MySqlClient;
 using SIstema_Tienda.Clases;
+using System.Timers;
 
 namespace SIstema_Tienda
 {
@@ -17,10 +18,13 @@ namespace SIstema_Tienda
 
         private void button1_Click(object sender, EventArgs e)
         {
+            
             Finalizar();
             textBox1.Text = "";
             Guardar_venta();
             Reiniciar();
+            this.ActiveControl = textBox1;
+
         }
 
 
@@ -37,7 +41,7 @@ namespace SIstema_Tienda
         private void inicioToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Hide();
-            Form Menu_FRM = new Acceso();
+            Form Menu_FRM = new Reporte_Ventas();
             Menu_FRM.ShowDialog();
             this.Close();
         }
@@ -49,21 +53,23 @@ namespace SIstema_Tienda
 
         private void button2_Click_1(object sender, EventArgs e)
         {
-            Agregar();
-            textBox1.Text = "";
+            
 
         }
 
         int[] Id_A0 = new int[1];
         string[] Nombre_A1 = new string[1];
         double[] Precio_A2 = new double[1];
+        
         string[] Fecha_A3 = new string[1];
         int[] Cantidad_A4 = new int[1];
         string[] Codigo_A5 = new string[1];
+        double[] Precio_compra_A6 = new double[1];
 
         string lista_productos_g = "";
         int i = 0;
         double precio_total = 0;
+        double precio_total_compra = 0;
         bool flag = false;
         private void Guardar_venta()
         {
@@ -72,10 +78,11 @@ namespace SIstema_Tienda
 
                 if (lista_productos_g != "")
                 {
-                    string sql = "INSERT INTO ventas (Productos, Total) VALUES ('" + lista_productos_g + "','"
-                            + precio_total + "')";
-
-                    MySqlConnection conexionBD = ConexionDB.Conexion();
+                    string sql = "INSERT INTO ventas (Productos, Total, Total_Compra) VALUES ('" + lista_productos_g + "','"
+                            + precio_total + "', '" + precio_total_compra + "')";
+                    
+                    ConexionDB conexionDB = new ConexionDB();
+                    MySqlConnection conexionBD = conexionDB.Conexion();
                     conexionBD.Open();
 
 
@@ -83,7 +90,6 @@ namespace SIstema_Tienda
                     {
                         MySqlCommand comando = new MySqlCommand(sql, conexionBD);
                         comando.ExecuteNonQuery();
-                        MessageBox.Show(lista_productos_g);
                     }
                     catch (MySqlException ex)
                     {
@@ -99,6 +105,7 @@ namespace SIstema_Tienda
                     label1.Text = "Debe completar los campos";
                 }
             }
+
             catch (FormatException fex)
             {
                 label1.Text = "Datos incorectos : " + fex.Message;
@@ -113,59 +120,61 @@ namespace SIstema_Tienda
                 int Existencias = 0;
                 string Nombre_prod = "";
                 MySqlDataReader reader = null;
-
-                MySqlConnection conexionBD = ConexionDB.Conexion();
+                ConexionDB conexionDB = new ConexionDB();
+                MySqlConnection conexionBD = conexionDB.Conexion();
                 conexionBD.Open();
 
                 try
                 {
-                    MySqlCommand comando = new MySqlCommand();
-                    comando.Connection = conexionBD;
-                    for (int x = 0; x <= i; x++)
+                    if (Codigo_A5.Length != 0)
                     {
-                        codigo = Codigo_A5[x];
-
-                        string sql_buscar = "SELECT Cantidad, Nombre, Codigo, Precio FROM productos WHERE Codigo LIKE '" + codigo + "' LIMIT 1";
-
-                        comando.CommandText = sql_buscar;
-                        reader = comando.ExecuteReader();
-
-                        if (reader.HasRows)
+                        MySqlCommand comando = new MySqlCommand();
+                        comando.Connection = conexionBD;
+                        for (int x = 0; x <= i; x++)
                         {
-                            while (reader.Read())
-                            {
-                                Existencias = reader.GetInt16(0);
-                                Nombre_prod = reader.GetString(1);
-                            }
+                            codigo = Codigo_A5[x];
 
-                            conexionBD.Close();
+                            string sql_buscar = "SELECT Cantidad, Nombre, Codigo, Precio FROM productos WHERE Codigo LIKE '" + codigo + "' LIMIT 1";
 
-                            if (Existencias >= 1)
+                            comando.CommandText = sql_buscar;
+                            reader = comando.ExecuteReader();
+
+                            if (reader.HasRows)
                             {
-                                Existencias--;
-                                string sql_actualizar = "UPDATE productos SET Cantidad='" + Existencias + "' WHERE Codigo='" + codigo + "'";
-                                conexionBD.Open();
-                                comando.CommandText = sql_actualizar;
-                                lista_productos_g += x + "-\t"+ Nombre_prod + "\n";
-                                comando.ExecuteNonQuery();
+                                while (reader.Read())
+                                {
+                                    Existencias = reader.GetInt16(0);
+                                    Nombre_prod = reader.GetString(1);
+                                }
+
+                                conexionBD.Close();
+
+                                if (Existencias >= 1)
+                                {
+                                    Existencias--;
+                                    string sql_actualizar = "UPDATE productos SET Cantidad='" + Existencias + "' WHERE Codigo='" + codigo + "'";
+                                    conexionBD.Open();
+                                    comando.CommandText = sql_actualizar;
+                                    lista_productos_g += x + "-\t" + Nombre_prod + "\n";
+                                    comando.ExecuteNonQuery();
+                                }
+                                else
+                                {
+                                    MessageBox.Show("El producto " + Nombre_prod + " ya no existe");
+                                    break;
+                                }
+
                             }
                             else
                             {
-                                MessageBox.Show("El producto " + Nombre_prod + " ya no existe");
+                                label1.Text = ("No hay productos agregados");
                                 break;
                             }
+                        }
 
-                        }
-                        else
-                        {
-                            label1.Text = ("No hay productos agregados");
-                            break;
-                        }
+                        textBox1.Text = "";
+                        MessageBox.Show(lista_productos_g + "Total\t" + precio_total);
                     }
-                    
-                    textBox1.Text = "";
-                    MessageBox.Show(lista_productos_g + "Total\t" + precio_total);
-                    
 
                 }
                 catch (MySqlException ex)
@@ -190,6 +199,7 @@ namespace SIstema_Tienda
             if (i > 0)
             {
                 precio_total = precio_total - Precio_A2[i];
+                precio_total_compra = precio_total_compra - Precio_compra_A6[i];
                 label1.Text = "El producto " + Nombre_A1[i] + " se ha eliminado";
 
                 Array.Resize(ref Id_A0, Id_A0.Length - 1);
@@ -198,6 +208,7 @@ namespace SIstema_Tienda
                 Array.Resize(ref Fecha_A3, Fecha_A3.Length - 1);
                 Array.Resize(ref Cantidad_A4, Cantidad_A4.Length - 1);
                 Array.Resize(ref Codigo_A5, Codigo_A5.Length - 1);
+                Array.Resize(ref Precio_compra_A6, Precio_compra_A6.Length - 1);
                 i--;
                 imprimir();
             }
@@ -212,20 +223,18 @@ namespace SIstema_Tienda
             Array.Resize(ref Id_A0, 0);
             Array.Resize(ref Nombre_A1, 0);
             Array.Resize(ref Precio_A2, 0);
+            Array.Resize(ref Precio_compra_A6, 0);
             Array.Resize(ref Fecha_A3, 0);
             Array.Resize(ref Cantidad_A4, 0);
             Array.Resize(ref Codigo_A5, 0);
 
-            Array.Resize(ref Id_A0, 1);
-            Array.Resize(ref Nombre_A1, 1);
-            Array.Resize(ref Precio_A2, 1);
-            Array.Resize(ref Fecha_A3, 1);
-            Array.Resize(ref Cantidad_A4, 1);
-            Array.Resize(ref Codigo_A5, 1);
             precio_total = 0;
+            precio_total_compra = 0;
+            lista_productos_g = "";
             i = 0;
             flag = false;
             listView1.Items.Clear();
+            label1.Text = ("");
         }
 
         private void Agregar()
@@ -236,10 +245,10 @@ namespace SIstema_Tienda
             if (codigo != "")
             {
 
-                string sql = "SELECT Id, Nombre, Precio, Fecha, Cantidad, Codigo FROM productos WHERE Codigo LIKE '"
+                string sql = "SELECT Id, Nombre, Precio, Fecha, Cantidad, Codigo,Precio_Compra FROM productos WHERE Codigo LIKE '"
                 + codigo + "' LIMIT 1";
-
-                MySqlConnection conexionBD = ConexionDB.Conexion();
+                ConexionDB conexionDB = new ConexionDB();
+                MySqlConnection conexionBD = conexionDB.Conexion();
                 conexionBD.Open();
 
                 try
@@ -252,6 +261,14 @@ namespace SIstema_Tienda
                         {
                             if (flag == false)
                             {
+                                Array.Resize(ref Id_A0, 1);
+                                Array.Resize(ref Nombre_A1, 1);
+                                Array.Resize(ref Precio_A2, 1);
+                                Array.Resize(ref Precio_compra_A6, 1);
+                                Array.Resize(ref Fecha_A3, 1);
+                                Array.Resize(ref Cantidad_A4, 1);
+                                Array.Resize(ref Codigo_A5, 1);
+
                                 if (reader.GetInt16(4) > 0)
                                 {
                                     flag = true;
@@ -261,8 +278,10 @@ namespace SIstema_Tienda
                                     Fecha_A3[i] = reader.GetString(3);
                                     Cantidad_A4[i] = reader.GetInt16(4);
                                     Codigo_A5[i] = reader.GetString(5);
+                                    Precio_compra_A6[i] = reader.GetDouble(6);
 
                                     precio_total = precio_total + Precio_A2[i];
+                                    precio_total_compra = precio_total_compra + Precio_compra_A6[i];
                                     label1.Text = "Producto " + Nombre_A1[i] + " agregado";
                                     imprimir();
                                 }
@@ -280,6 +299,7 @@ namespace SIstema_Tienda
                                     Array.Resize(ref Id_A0, Id_A0.Length + 1);
                                     Array.Resize(ref Nombre_A1, Nombre_A1.Length + 1);
                                     Array.Resize(ref Precio_A2, Precio_A2.Length + 1);
+                                    Array.Resize(ref Precio_compra_A6, Precio_compra_A6.Length + 1);
                                     Array.Resize(ref Fecha_A3, Fecha_A3.Length + 1);
                                     Array.Resize(ref Cantidad_A4, Cantidad_A4.Length + 1);
                                     Array.Resize(ref Codigo_A5, Codigo_A5.Length + 1);
@@ -290,8 +310,10 @@ namespace SIstema_Tienda
                                     Fecha_A3[i] = reader.GetString(3);
                                     Cantidad_A4[i] = reader.GetInt16(4);
                                     Codigo_A5[i] = reader.GetString(5);
+                                    Precio_compra_A6[i] = reader.GetDouble(6);
 
                                     precio_total = precio_total + Precio_A2[i];
+                                    precio_total_compra = precio_total_compra + Precio_compra_A6[i];
                                     label1.Text = "Producto " + Nombre_A1[i] + " agregado";
                                     imprimir();
                                 }
@@ -359,6 +381,7 @@ namespace SIstema_Tienda
         private void button3_Click(object sender, EventArgs e)
         {
             Eliminar();
+            this.ActiveControl = textBox1;
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -366,6 +389,21 @@ namespace SIstema_Tienda
 
             listView1.Items.Clear();
             Reiniciar();
+            this.ActiveControl = textBox1;
+        }
+
+        private async void textBox1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                Agregar();
+                textBox1.Text = "";
+            }
+        }
+
+        private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
         }
     }
 }

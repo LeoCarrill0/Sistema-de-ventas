@@ -31,7 +31,8 @@ namespace SIstema_Tienda
                 string sql = "SELECT Nombre, Pass FROM usuarios WHERE Nombre LIKE '"
                     + Usuario + "' AND Pass like '" + Pass + "'";
 
-                MySqlConnection conexionBD = ConexionDB.Conexion();
+                ConexionDB conexionDB = new ConexionDB();
+                MySqlConnection conexionBD = conexionDB.Conexion();
                 conexionBD.Open();
 
                 try

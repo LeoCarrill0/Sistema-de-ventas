@@ -9,7 +9,7 @@ namespace SIstema_Tienda.Clases
 {
     class ConexionDB
     {
-        public static MySqlConnection Conexion()
+        public MySqlConnection Conexion()
         {
             string servidor = "localhost";
             string db = "sistema_tienda";

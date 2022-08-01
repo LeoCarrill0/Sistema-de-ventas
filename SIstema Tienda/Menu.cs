@@ -28,6 +28,7 @@ namespace SIstema_Tienda
             Form Ventas_FRM = new Ventas();
             Ventas_FRM.ShowDialog();
             this.Close();
+
         }
 
         private void button5_Click(object sender, EventArgs e)
@@ -38,13 +39,15 @@ namespace SIstema_Tienda
                 String Codigo = textBox1.Text;
                 String Nombre = textBox2.Text;
                 double Precio = double.Parse(textBox3.Text);
+                double Precio_Compra = double.Parse(textBox5.Text);
                 int Existencias = int.Parse(textBox4.Text);
                 if (Codigo != "" && Nombre != "" && Precio > 0 && Existencias > 0)
                 {
-                    string sql = "SELECT Id, Nombre, Precio, Fecha, Cantidad, Codigo FROM productos WHERE Codigo LIKE '"
+                    string sql = "SELECT Id, Nombre, Precio, Fecha, Cantidad, Codigo, Precio_Compra FROM productos WHERE Codigo LIKE '"
                     + Codigo + "' LIMIT 1";
 
-                    MySqlConnection conexionBD = ConexionDB.Conexion();
+                    ConexionDB conexionDB = new ConexionDB();
+                    MySqlConnection conexionBD = conexionDB.Conexion();
                     conexionBD.Open();
 
 
@@ -59,9 +62,10 @@ namespace SIstema_Tienda
                         }
                         else
                         {
-
-                            sql = "INSERT INTO productos (Nombre, Precio, Cantidad, Codigo) VALUES ('" + Nombre + "','"
-                            + Precio + "','" + Existencias + "','" + Codigo + "')";
+                            conexionBD.Close();
+                            conexionBD.Open();
+                            sql = "INSERT INTO productos (Nombre, Precio, Cantidad, Codigo, Precio_Compra) VALUES ('" + Nombre + "','"
+                            + Precio + "','" + Existencias + "','" + Codigo + "','" + Precio_Compra + "')";
                             comando.CommandText = sql;
                             comando.ExecuteNonQuery();
                             label7.Text = "Producto guardados";
@@ -87,12 +91,15 @@ namespace SIstema_Tienda
                 label7.Text = "Datos incorectos : " + fex.Message;
             }
 
+            this.ActiveControl = textBox1;
+
         }
 
         private void button6_Click(object sender, EventArgs e)
         {
             limpiar();
             label7.Text = "";
+            this.ActiveControl = textBox1;
         }
         string Id_1;
         private void button1_Click(object sender, EventArgs e)
@@ -102,10 +109,11 @@ namespace SIstema_Tienda
             if (codigo != "")
             {
 
-                string sql = "SELECT Id, Nombre, Precio, Fecha, Cantidad, Codigo FROM productos WHERE Codigo LIKE '"
+                string sql = "SELECT Id, Nombre, Precio, Fecha, Cantidad, Codigo, Precio_Compra FROM productos WHERE Codigo LIKE '"
                 + codigo + "' LIMIT 1";
 
-                MySqlConnection conexionBD = ConexionDB.Conexion();
+                ConexionDB conexionDB = new ConexionDB();
+                MySqlConnection conexionBD = conexionDB.Conexion();
                 conexionBD.Open();
 
                 try
@@ -120,6 +128,7 @@ namespace SIstema_Tienda
                             textBox2.Text = reader.GetString(1);
                             textBox3.Text = reader.GetString(2);
                             textBox4.Text = reader.GetString(4);
+                            textBox5.Text = reader.GetString(6);
                             label6.Text = reader.GetString(3);
                             label7.Text = "";
                         }
@@ -143,6 +152,7 @@ namespace SIstema_Tienda
             {
                 label7.Text = "Debe completar los campos";
             }
+            this.ActiveControl = textBox1;
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -153,15 +163,17 @@ namespace SIstema_Tienda
                 String Codigo = textBox1.Text;
                 String Nombre = textBox2.Text;
                 double Precio = double.Parse(textBox3.Text);
+                double Precio_compra = double.Parse(textBox5.Text);
                 int Existencias = int.Parse(textBox4.Text);
 
                 if (Codigo != "" && Nombre != "" && Precio > 0 && Existencias > 0)
                 {
 
                     string sql = "UPDATE productos SET Codigo='" + Codigo + "', Nombre='" + Nombre + "', Precio='"
-                    + Precio + "', Cantidad='" + Existencias + "' WHERE Id='" + id + "'";
+                    + Precio + "', Cantidad='" + Existencias + "', Precio_compra='" + Precio_compra + "' WHERE Id='" + id + "'";
 
-                    MySqlConnection conexionBD = ConexionDB.Conexion();
+                    ConexionDB conexionDB = new ConexionDB();
+                    MySqlConnection conexionBD = conexionDB.Conexion();
                     conexionBD.Open();
 
                     try
@@ -190,6 +202,7 @@ namespace SIstema_Tienda
             {
                 label7.Text = "Datos incorectos : " + fex.Message;
             }
+            this.ActiveControl = textBox1;
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -207,7 +220,8 @@ namespace SIstema_Tienda
 
                     string sql = "DELETE FROM productos WHERE Id='" + id + "'";
 
-                    MySqlConnection conexionBD = ConexionDB.Conexion();
+                    ConexionDB conexionDB = new ConexionDB();
+                    MySqlConnection conexionBD = conexionDB.Conexion();
                     conexionBD.Open();
 
                     try
@@ -246,6 +260,7 @@ namespace SIstema_Tienda
             {
                 label7.Text = "Datos incorectos : " + fex.Message;
             }
+            this.ActiveControl = textBox1;
 
         }
         private void limpiar()
@@ -254,8 +269,30 @@ namespace SIstema_Tienda
             textBox2.Text = "";
             textBox3.Text = "";
             textBox4.Text = "";
+            textBox5.Text = "";
             label6.Text = "";
             Id_1 = null;
+        }
+
+        private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if(e.KeyChar == (char)Keys.Enter)
+            {
+
+            }
+        }
+
+        private void label7_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void reporteDeVentasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Form Menu_FRM = new Reporte_Ventas();
+            Menu_FRM.ShowDialog();
+            this.Close();
         }
     }
 }

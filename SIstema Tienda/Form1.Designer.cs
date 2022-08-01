@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Ventas));
             this.button1 = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.menuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -36,7 +38,6 @@
             this.salirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.inicioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.button2 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.button3 = new System.Windows.Forms.Button();
@@ -47,14 +48,15 @@
             this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader3 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader4 = new System.Windows.Forms.ColumnHeader();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(1630, 869);
+            this.button1.Location = new System.Drawing.Point(1582, 851);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(114, 61);
+            this.button1.Size = new System.Drawing.Size(114, 64);
             this.button1.TabIndex = 0;
             this.button1.Text = "Finalizar";
             this.button1.UseVisualStyleBackColor = true;
@@ -71,6 +73,7 @@
             this.menuStrip1.Size = new System.Drawing.Size(1919, 28);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
+            this.menuStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.menuStrip1_ItemClicked);
             // 
             // menuToolStripMenuItem
             // 
@@ -117,22 +120,13 @@
             this.inicioToolStripMenuItem.Text = "Administracion";
             this.inicioToolStripMenuItem.Click += new System.EventHandler(this.inicioToolStripMenuItem_Click);
             // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(248, 59);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(94, 29);
-            this.button2.TabIndex = 2;
-            this.button2.Text = "Agregar";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click_1);
-            // 
             // textBox1
             // 
             this.textBox1.Location = new System.Drawing.Point(89, 59);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(125, 27);
-            this.textBox1.TabIndex = 3;
+            this.textBox1.TabIndex = 0;
+            this.textBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox1_KeyPress);
             // 
             // label1
             // 
@@ -145,9 +139,9 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(1350, 869);
+            this.button3.Location = new System.Drawing.Point(1302, 851);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(114, 61);
+            this.button3.Size = new System.Drawing.Size(114, 64);
             this.button3.TabIndex = 6;
             this.button3.Text = "Borrar producto";
             this.button3.UseVisualStyleBackColor = true;
@@ -155,9 +149,9 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(1490, 869);
+            this.button4.Location = new System.Drawing.Point(1442, 851);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(114, 61);
+            this.button4.Size = new System.Drawing.Size(114, 64);
             this.button4.TabIndex = 7;
             this.button4.Text = "Cancelar";
             this.button4.UseVisualStyleBackColor = true;
@@ -174,7 +168,7 @@
             this.listView1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.listView1.Location = new System.Drawing.Point(89, 107);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(1179, 823);
+            this.listView1.Size = new System.Drawing.Size(1179, 808);
             this.listView1.TabIndex = 10;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
@@ -204,6 +198,10 @@
             this.columnHeader4.Text = "Total";
             this.columnHeader4.Width = 200;
             // 
+            // timer1
+            // 
+            this.timer1.Interval = 1000;
+            // 
             // Ventas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -214,9 +212,9 @@
             this.Controls.Add(this.button3);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.menuStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Ventas";
             this.Text = "Venta";
@@ -239,7 +237,6 @@
         private ToolStripMenuItem imprimirToolStripMenuItem;
         private ToolStripMenuItem salirToolStripMenuItem;
         private ToolStripMenuItem inicioToolStripMenuItem;
-        private Button button2;
         private TextBox textBox1;
         private Label label1;
         private Button button3;
@@ -250,5 +247,6 @@
         private ColumnHeader columnHeader3;
         private ColumnHeader columnHeader4;
         private ColumnHeader columnHeader5;
+        private System.Windows.Forms.Timer timer1;
     }
 }
