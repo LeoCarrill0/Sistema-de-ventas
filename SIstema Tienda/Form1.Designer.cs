@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Ventas));
             this.button1 = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
@@ -48,13 +47,13 @@
             this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader3 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader4 = new System.Windows.Forms.ColumnHeader();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.button2 = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(1582, 851);
+            this.button1.Location = new System.Drawing.Point(1313, 557);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(114, 64);
             this.button1.TabIndex = 0;
@@ -70,7 +69,7 @@
             this.menuToolStripMenuItem1});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1919, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(1531, 28);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             this.menuStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.menuStrip1_ItemClicked);
@@ -139,7 +138,7 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(1302, 851);
+            this.button3.Location = new System.Drawing.Point(1313, 369);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(114, 64);
             this.button3.TabIndex = 6;
@@ -149,7 +148,7 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(1442, 851);
+            this.button4.Location = new System.Drawing.Point(1313, 462);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(114, 64);
             this.button4.TabIndex = 7;
@@ -198,15 +197,23 @@
             this.columnHeader4.Text = "Total";
             this.columnHeader4.Width = 200;
             // 
-            // timer1
+            // button2
             // 
-            this.timer1.Interval = 1000;
+            this.button2.Location = new System.Drawing.Point(1317, 665);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(94, 29);
+            this.button2.TabIndex = 11;
+            this.button2.Text = "button2";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click_2);
             // 
             // Ventas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1919, 1055);
+            this.BackColor = System.Drawing.SystemColors.Control;
+            this.ClientSize = new System.Drawing.Size(1531, 1020);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.listView1);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);
@@ -217,7 +224,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Ventas";
-            this.Text = "Venta";
+            this.Text = "Ventas";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.Form1_Load);
             this.menuStrip1.ResumeLayout(false);
@@ -247,6 +254,6 @@
         private ColumnHeader columnHeader3;
         private ColumnHeader columnHeader4;
         private ColumnHeader columnHeader5;
-        private System.Windows.Forms.Timer timer1;
+        private Button button2;
     }
 }

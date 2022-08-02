@@ -1,4 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
+using Sistema_Tienda;
 using SIstema_Tienda.Clases;
 using System;
 using System.Collections.Generic;
@@ -49,7 +50,6 @@ namespace SIstema_Tienda
                     ConexionDB conexionDB = new ConexionDB();
                     MySqlConnection conexionBD = conexionDB.Conexion();
                     conexionBD.Open();
-
 
                     try
                     {

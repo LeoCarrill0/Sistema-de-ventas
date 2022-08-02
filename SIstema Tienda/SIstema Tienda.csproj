@@ -15,6 +15,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="iTextSharp" Version="5.5.13.3" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="MySql.Data">
       <HintPath>..\..\..\..\..\..\Program Files (x86)\MySQL\Connector NET 8.0\Assemblies\net5.0\MySql.Data.dll</HintPath>
     </Reference>

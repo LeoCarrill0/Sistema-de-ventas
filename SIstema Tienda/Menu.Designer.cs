@@ -96,24 +96,24 @@
             this.label9.AutoSize = true;
             this.label9.Location = new System.Drawing.Point(375, 228);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(46, 20);
+            this.label9.Size = new System.Drawing.Size(65, 20);
             this.label9.TabIndex = 14;
-            this.label9.Text = "Venta";
+            this.label9.Text = "Venta  Q";
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(168, 228);
+            this.label8.Location = new System.Drawing.Point(167, 222);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(62, 20);
+            this.label8.Size = new System.Drawing.Size(81, 20);
             this.label8.TabIndex = 13;
-            this.label8.Text = "Compra";
+            this.label8.Text = "Compra  Q";
             // 
             // textBox5
             // 
-            this.textBox5.Location = new System.Drawing.Point(236, 225);
+            this.textBox5.Location = new System.Drawing.Point(250, 219);
             this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(109, 27);
+            this.textBox5.Size = new System.Drawing.Size(94, 27);
             this.textBox5.TabIndex = 2;
             // 
             // label6
@@ -134,9 +134,9 @@
             // 
             // textBox3
             // 
-            this.textBox3.Location = new System.Drawing.Point(427, 225);
+            this.textBox3.Location = new System.Drawing.Point(442, 225);
             this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(109, 27);
+            this.textBox3.Size = new System.Drawing.Size(94, 27);
             this.textBox3.TabIndex = 3;
             // 
             // textBox2
@@ -289,7 +289,7 @@
             // reporteDeVentasToolStripMenuItem
             // 
             this.reporteDeVentasToolStripMenuItem.Name = "reporteDeVentasToolStripMenuItem";
-            this.reporteDeVentasToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.reporteDeVentasToolStripMenuItem.Size = new System.Drawing.Size(212, 26);
             this.reporteDeVentasToolStripMenuItem.Text = "Reporte de ventas";
             this.reporteDeVentasToolStripMenuItem.Click += new System.EventHandler(this.reporteDeVentasToolStripMenuItem_Click);
             // 

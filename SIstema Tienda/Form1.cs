@@ -1,6 +1,9 @@
 using MySql.Data.MySqlClient;
 using SIstema_Tienda.Clases;
 using System.Timers;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+using System.Diagnostics;
 
 namespace SIstema_Tienda
 {
@@ -23,7 +26,10 @@ namespace SIstema_Tienda
             textBox1.Text = "";
             Guardar_venta();
             Reiniciar();
+            
+
             this.ActiveControl = textBox1;
+
 
         }
 
@@ -41,7 +47,7 @@ namespace SIstema_Tienda
         private void inicioToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Hide();
-            Form Menu_FRM = new Reporte_Ventas();
+            Form Menu_FRM = new Acceso();
             Menu_FRM.ShowDialog();
             this.Close();
         }
@@ -112,12 +118,15 @@ namespace SIstema_Tienda
             }
         }
 
+        string name_file;
         private void Finalizar()
         {
             try
             {
+                precio_total = 0;
                 string codigo = "";
                 int Existencias = 0;
+                double precio = 0;
                 string Nombre_prod = "";
                 MySqlDataReader reader = null;
                 ConexionDB conexionDB = new ConexionDB();
@@ -128,8 +137,39 @@ namespace SIstema_Tienda
                 {
                     if (Codigo_A5.Length != 0)
                     {
-                        MySqlCommand comando = new MySqlCommand();
-                        comando.Connection = conexionBD;
+                        int ind = 1;
+                        MySqlCommand comando = new MySqlCommand("select max(Id) from Ventas", conexionBD);
+                        reader = comando.ExecuteReader();
+                        if(reader.Read())
+                        {
+                            try
+                            {
+                                ind = reader.GetInt32(0);
+                                ind++;
+                            }
+                            catch (Exception ex)
+                            {
+                                ind = 1;
+                            }
+                        }
+                        conexionBD.Close();
+                        conexionBD.Open();
+                        name_file = @"./" + ind.ToString() + "_boleto_compra.pdf";
+                        FileStream fs = new FileStream(name_file, FileMode.Create);
+                        Document doc = new Document(PageSize.LETTER, 7, 7, 7, 7);
+                        PdfWriter pw = PdfWriter.GetInstance(doc, fs);
+
+                        doc.Open();
+
+                        doc.AddAuthor("Leo");
+                        doc.AddTitle("Factura " + ind.ToString() + "");
+
+                        iTextSharp.text.Font standarfont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 8, iTextSharp.text.Font.NORMAL, BaseColor.BLACK);
+
+                        doc.Add(new Paragraph("Factura Compra"));
+
+                        doc.Add(Chunk.NEWLINE);
+
                         for (int x = 0; x <= i; x++)
                         {
                             codigo = Codigo_A5[x];
@@ -145,6 +185,7 @@ namespace SIstema_Tienda
                                 {
                                     Existencias = reader.GetInt16(0);
                                     Nombre_prod = reader.GetString(1);
+                                    precio = reader.GetDouble(3);
                                 }
 
                                 conexionBD.Close();
@@ -155,7 +196,10 @@ namespace SIstema_Tienda
                                     string sql_actualizar = "UPDATE productos SET Cantidad='" + Existencias + "' WHERE Codigo='" + codigo + "'";
                                     conexionBD.Open();
                                     comando.CommandText = sql_actualizar;
-                                    lista_productos_g += x + "-\t" + Nombre_prod + "\n";
+                                    precio_total = precio_total + precio;
+                                    int x_1 = x+1;
+                                    doc.Add(new Paragraph(x_1.ToString() + " -\t " + Nombre_prod + "\t Q" + precio.ToString()));
+                                    lista_productos_g += x_1 + "-\t" + Nombre_prod + "\tQ" + precio.ToString() +"\n";
                                     comando.ExecuteNonQuery();
                                 }
                                 else
@@ -173,7 +217,16 @@ namespace SIstema_Tienda
                         }
 
                         textBox1.Text = "";
-                        MessageBox.Show(lista_productos_g + "Total\t" + precio_total);
+                        MessageBox.Show(lista_productos_g + "Total\tQ" + precio_total);
+
+                        doc.Add(new Paragraph("Total \tQ" + precio_total));
+                        doc.Add(Chunk.NEWLINE);
+
+                        doc.Add(new Paragraph("Compra exitosa!!!"));
+
+                        doc.Close();
+                        pw.Close();
+                        //System.Diagnostics.Process.Start(name_file);
                     }
 
                 }
@@ -359,7 +412,7 @@ namespace SIstema_Tienda
                     lista.SubItems.Add(Nombre_A1[x]);
                     lista.SubItems.Add(Precio_A2[x].ToString());
 
-                    if (x == i)
+                    if(x == i)
                     {
                         lista.SubItems.Add(precio_total.ToString());
                         listView1.Items.Add(lista);
@@ -404,6 +457,11 @@ namespace SIstema_Tienda
         private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
 
+        }
+
+        private void button2_Click_2(object sender, EventArgs e)
+        {
+            
         }
     }
 }
