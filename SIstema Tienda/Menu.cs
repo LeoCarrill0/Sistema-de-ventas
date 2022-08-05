@@ -289,10 +289,8 @@ namespace SIstema_Tienda
 
         private void reporteDeVentasToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.Hide();
             Form Menu_FRM = new Reporte_Ventas();
             Menu_FRM.ShowDialog();
-            this.Close();
         }
     }
 }

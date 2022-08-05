@@ -42,7 +42,6 @@
             this.Cantidad = new System.Windows.Forms.ColumnHeader();
             this.columnHeader6 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader7 = new System.Windows.Forms.ColumnHeader();
-            this.button1 = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -138,22 +137,11 @@
             this.columnHeader7.Text = "Total precio venta";
             this.columnHeader7.Width = 200;
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(1238, 699);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(188, 39);
-            this.button1.TabIndex = 12;
-            this.button1.Text = "Regresar";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // Reporte_Ventas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1449, 771);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.listView1);
             this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -183,6 +171,5 @@
         private ColumnHeader Cantidad;
         private ColumnHeader columnHeader6;
         private ColumnHeader columnHeader7;
-        private Button button1;
     }
 }

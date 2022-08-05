@@ -123,10 +123,12 @@ namespace SIstema_Tienda
         {
             try
             {
+                precio_total_compra = 0;
                 precio_total = 0;
                 string codigo = "";
                 int Existencias = 0;
                 double precio = 0;
+                double precio_comp = 0;
                 string Nombre_prod = "";
                 MySqlDataReader reader = null;
                 ConexionDB conexionDB = new ConexionDB();
@@ -174,7 +176,7 @@ namespace SIstema_Tienda
                         {
                             codigo = Codigo_A5[x];
 
-                            string sql_buscar = "SELECT Cantidad, Nombre, Codigo, Precio FROM productos WHERE Codigo LIKE '" + codigo + "' LIMIT 1";
+                            string sql_buscar = "SELECT Cantidad, Nombre, Codigo, Precio, Precio_Compra FROM productos WHERE Codigo LIKE '" + codigo + "' LIMIT 1";
 
                             comando.CommandText = sql_buscar;
                             reader = comando.ExecuteReader();
@@ -186,6 +188,7 @@ namespace SIstema_Tienda
                                     Existencias = reader.GetInt16(0);
                                     Nombre_prod = reader.GetString(1);
                                     precio = reader.GetDouble(3);
+                                    precio_comp = reader.GetDouble(4);
                                 }
 
                                 conexionBD.Close();
@@ -196,10 +199,16 @@ namespace SIstema_Tienda
                                     string sql_actualizar = "UPDATE productos SET Cantidad='" + Existencias + "' WHERE Codigo='" + codigo + "'";
                                     conexionBD.Open();
                                     comando.CommandText = sql_actualizar;
-                                    precio_total = precio_total + precio;
+
+                                    precio_total = precio_total + precio * 10000;
+                                    precio_total = (double)Math.Round(precio_total, 2);
+
+                                    precio_total_compra = precio_total_compra + precio_comp * 10000;
+                                    precio_total_compra = (double)Math.Round(precio_total_compra, 2);
+
                                     int x_1 = x+1;
                                     doc.Add(new Paragraph(x_1.ToString() + " -\t " + Nombre_prod + "\t Q" + precio.ToString()));
-                                    lista_productos_g += x_1 + "-\t" + Nombre_prod + "\tQ" + precio.ToString() +"\n";
+                                    lista_productos_g += x_1 + "-\t " + Nombre_prod + "\t Q" + precio.ToString() +"\n ";
                                     comando.ExecuteNonQuery();
                                 }
                                 else
@@ -334,7 +343,9 @@ namespace SIstema_Tienda
                                     Precio_compra_A6[i] = reader.GetDouble(6);
 
                                     precio_total = precio_total + Precio_A2[i];
+                                    precio_total = (double)Math.Round(precio_total, 2);
                                     precio_total_compra = precio_total_compra + Precio_compra_A6[i];
+                                    precio_total_compra = (double)Math.Round(precio_total_compra, 2);
                                     label1.Text = "Producto " + Nombre_A1[i] + " agregado";
                                     imprimir();
                                 }
@@ -366,7 +377,9 @@ namespace SIstema_Tienda
                                     Precio_compra_A6[i] = reader.GetDouble(6);
 
                                     precio_total = precio_total + Precio_A2[i];
+                                    precio_total = (double)Math.Round(precio_total, 2);
                                     precio_total_compra = precio_total_compra + Precio_compra_A6[i];
+                                    precio_total_compra = (double)Math.Round(precio_total_compra, 2);
                                     label1.Text = "Producto " + Nombre_A1[i] + " agregado";
                                     imprimir();
                                 }

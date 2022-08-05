@@ -83,8 +83,6 @@ namespace Sistema_Tienda
         private void button1_Click(object sender, EventArgs e)
         {
             this.Hide();
-            Form menu = new Menu();
-            menu.ShowDialog();
             this.Close();
         }
     }

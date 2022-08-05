@@ -54,6 +54,7 @@
             this.archivosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reporteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reporteDeVentasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.reporteDeVentasToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -281,7 +282,8 @@
             // reporteToolStripMenuItem
             // 
             this.reporteToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.reporteDeVentasToolStripMenuItem});
+            this.reporteDeVentasToolStripMenuItem,
+            this.reporteDeVentasToolStripMenuItem1});
             this.reporteToolStripMenuItem.Name = "reporteToolStripMenuItem";
             this.reporteToolStripMenuItem.Size = new System.Drawing.Size(76, 24);
             this.reporteToolStripMenuItem.Text = "Reporte";
@@ -289,9 +291,15 @@
             // reporteDeVentasToolStripMenuItem
             // 
             this.reporteDeVentasToolStripMenuItem.Name = "reporteDeVentasToolStripMenuItem";
-            this.reporteDeVentasToolStripMenuItem.Size = new System.Drawing.Size(212, 26);
-            this.reporteDeVentasToolStripMenuItem.Text = "Reporte de ventas";
+            this.reporteDeVentasToolStripMenuItem.Size = new System.Drawing.Size(227, 26);
+            this.reporteDeVentasToolStripMenuItem.Text = "Reporte de registros";
             this.reporteDeVentasToolStripMenuItem.Click += new System.EventHandler(this.reporteDeVentasToolStripMenuItem_Click);
+            // 
+            // reporteDeVentasToolStripMenuItem1
+            // 
+            this.reporteDeVentasToolStripMenuItem1.Name = "reporteDeVentasToolStripMenuItem1";
+            this.reporteDeVentasToolStripMenuItem1.Size = new System.Drawing.Size(227, 26);
+            this.reporteDeVentasToolStripMenuItem1.Text = "Reporte de ventas";
             // 
             // Menu
             // 
@@ -345,5 +353,6 @@
         private ToolStripMenuItem archivosToolStripMenuItem;
         private ToolStripMenuItem reporteToolStripMenuItem;
         private ToolStripMenuItem reporteDeVentasToolStripMenuItem;
+        private ToolStripMenuItem reporteDeVentasToolStripMenuItem1;
     }
 }
